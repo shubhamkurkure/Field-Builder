@@ -2,6 +2,7 @@ import React from "react";
 
 class Choice extends React.Component {
 
+    choiceBeingUpdated;
     constructor(props) {
         super(props);
 
@@ -9,6 +10,7 @@ class Choice extends React.Component {
             title : this.props.choice.title,
             updateMode : false
         }
+        this.choiceBeingUpdated = this.props.choice.title;
 
     }
 
@@ -16,13 +18,13 @@ class Choice extends React.Component {
         this.setState(state =>({
             updateMode: !state.updateMode
         }))
-    }
+    };
 
     titleChangeHandler = (event) => {
         this.setState({
             title : event.target.value
                       })
-    }
+    };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.choice.title !== this.props.choice.title) {
@@ -36,7 +38,7 @@ class Choice extends React.Component {
         let choiceStyle;
 
         if(this.props.defaultSelection) {
-            choiceStyle = {background : "lightgrey"};
+            choiceStyle = {background : "lightgrey"}
         } else {
             choiceStyle = {background : "white"}
         }
@@ -62,6 +64,7 @@ class Choice extends React.Component {
                     !this.state.updateMode &&
                     <div className={"col-sm-2"}>
                         <button type={"button"} className={"btn btn-primary"} onClick={()=>{
+                            this.choiceBeingUpdated = this.state.title;
                             this.togglePreview();
                         }}>Update</button>
                     </div>
@@ -72,10 +75,11 @@ class Choice extends React.Component {
                     this.state.updateMode &&
                     <div className={"col-sm-2"}>
                         <button type={"button"} className={"btn btn-primary"} onClick={()=>{
-                            if(!this.props.updateChoice(this.props.index, this.state.title)) {
+                            //this.props.updateChoice(this.props.index, this.state.title)
+                            if(!this.props.updateChoice(this.props.index, this.state.title, this.choiceBeingUpdated)) {
                                 this.setState({
                                     title : this.choiceBeingUpdated
-                                              })
+                                })
                             };
                             this.togglePreview();
                         }}>Done</button>

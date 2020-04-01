@@ -23,20 +23,20 @@ class FieldBuilder extends React.Component{
         this.setState({
             label : event.target.value
                       })
-    }
+    };
 
     defaultValueChangeHandler = (event) => {
         this.setState({
             defaultValue : event.target.value
                       })
-    }
+    };
 
 
     togglePreview = () => {
         this.setState(state =>({
             preview: !state.preview
         }))
-    }
+    };
 
     addChoice = (newChoice) => {
         let newChoiceArray = [...this.state.choices];
@@ -45,7 +45,7 @@ class FieldBuilder extends React.Component{
         this.setState({
             choices: newChoiceArray
                       })
-    }
+    };
 
     checkDuplicate = (newChoice) => {
         for(let i=0;i<this.state.choices.length ; i++) {
@@ -55,9 +55,9 @@ class FieldBuilder extends React.Component{
         }
 
         return false;
-    }
+    };
 
-    updateChoice = (index, updatedChoiceTitle) => {
+    /*updateChoice = (index, updatedChoiceTitle) => {
         if(this.checkDuplicate(updatedChoiceTitle))
         {
             alert("This choice already exists.");
@@ -71,6 +71,23 @@ class FieldBuilder extends React.Component{
                               choices : newChoiceArray
                           })
         }
+        return true;
+    };*/
+
+    updateChoice = (index, updatedChoiceTitle, choiceBeforeUpdate) => {
+        if(this.checkDuplicate(updatedChoiceTitle))
+        {
+            alert("This choice already exists.");
+            return false;
+        } else {
+
+            let newChoiceArray = [...this.state.choices];
+            newChoiceArray[index].title = updatedChoiceTitle;
+
+            this.setState({
+                choices : newChoiceArray
+            })
+        }
 
         return true;
     }
@@ -83,7 +100,7 @@ class FieldBuilder extends React.Component{
         this.setState({
             choices : newChoicesArray
                       })
-    }
+    };
 
     selectTypeChangeHandler = (event) => {
         if(event.target.checked){
@@ -98,13 +115,13 @@ class FieldBuilder extends React.Component{
                           })
         }
 
-    }
+    };
 
     setCurrentSelectedChoice = (index) => {
         this.setState({
             currentSelectedChoice : index
                       })
-    }
+    };
 
     orderingChangeHandler = (event) => {
         if(this.state.ordering === "increasing") {
@@ -142,7 +159,16 @@ class FieldBuilder extends React.Component{
         this.setState({
             ordering : event.target.value
                       })
-    }
+    };
+
+    checkDefaultInChoice = () => {
+        for (let i = 0; i < this.state.choices.length; i++) {
+            if (this.state.choices[i].title === this.state.defaultValue) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     render() {
         return (
@@ -253,17 +279,26 @@ class FieldBuilder extends React.Component{
                             <div className={"col-sm-6"}>
                                 <button style={{width:"100%"}} type={"button"} className={"btn btn-success"}
                                         onClick={()=> {
-                                    if(this.state.label !== "" && this.state.label.length !==0) {
-                                        console.log(this.state);
-                                        fieldService(this.state).then(response => {
-                                            console.log(response);
-                                        })
-                                        alert("Logged the post data into console!")
-                                    } else {
-                                        alert("Label cannot be empty!")
-                                    }
-                                }
-                                }>Save Changes</button>
+                                            let finalState = {...this.state}
+                                            let finalChoiceArray = [...this.state.choices]
+                                            if(!this.checkDefaultInChoice()) {
+                                                finalChoiceArray.push({"title": this.state.defaultValue})
+                                                finalState.choices = finalChoiceArray;
+                                                this.setState({
+                                                    choices: finalChoiceArray
+                                                });
+                                            }
+                                            if(this.state.label !== "" && this.state.label.length !==0) {
+                                                console.log(finalState);
+                                                fieldService(finalState).then(response => {
+                                                    console.log(response);
+                                                });
+                                                alert("Logged the post data into console!")
+                                            } else {
+                                                alert("Label cannot be empty!")
+                                            }
+                                        }
+                                    }>Save Changes</button>
                             </div>
                             <div className={"col-sm-6"}>
                                 <button style={{width:"100%"}} type={"button"} className={"btn btn-info"} onClick={()=> {
@@ -317,7 +352,7 @@ class FieldBuilder extends React.Component{
                                                 currentSelectedChoice = {this.state.currentSelectedChoice}
                                                 defaultSelection = {defaultSelection}
                                                 selectType = {this.state.selectType}
-                                                key = {index*987}
+                                                key = {index+50} // Every component needs to have unique index as a key
                                             />
                                         })
                                     }

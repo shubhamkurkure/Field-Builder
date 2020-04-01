@@ -13,10 +13,10 @@ class ChoicePreview extends React.Component {
         this.setState(state =>({
             selected: !state.selected
         }))
-    }
+    };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(this.props.currentSelectedChoice)
+        console.log(this.props.currentSelectedChoice);
         if(this.props.selectType === "singleSelect" && this.props.index !== this.props.currentSelectedChoice
             && this.state.selected) {
             this.setState({
