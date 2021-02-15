@@ -11,3 +11,23 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wbdv-padding {
+  padding: 10px;
+}
+.wbdv-padding-plus {
+  padding: 10px;
+  margin: 5px;
+}
+
+.wbdv-padding-button {
+  padding: 5px;
+}
+
+.wbdv-heading {
+  background: #61dafb;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+

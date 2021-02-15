@@ -3,33 +3,34 @@ import React from "react";
 class Choice extends React.Component {
 
     choiceBeingUpdated;
+
     constructor(props) {
         super(props);
 
         this.state = {
-            title : this.props.choice.title,
-            updateMode : false
+            title: this.props.choice.title,
+            updateMode: false
         }
         this.choiceBeingUpdated = this.props.choice.title;
 
     }
 
     togglePreview = () => {
-        this.setState(state =>({
+        this.setState(state => ({
             updateMode: !state.updateMode
         }))
     };
 
     titleChangeHandler = (event) => {
         this.setState({
-            title : event.target.value
+                          title: event.target.value
                       })
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(prevProps.choice.title !== this.props.choice.title) {
+        if (prevProps.choice.title !== this.props.choice.title) {
             this.setState({
-                title : this.props.choice.title
+                              title: this.props.choice.title
                           })
         }
     }
@@ -37,58 +38,63 @@ class Choice extends React.Component {
     render() {
         let choiceStyle;
 
-        if(this.props.defaultSelection) {
-            choiceStyle = {background : "lightgrey"}
+        if (this.props.defaultSelection) {
+            choiceStyle = {background: "lightgrey", margin: "5px"}
         } else {
-            choiceStyle = {background : "white"}
+            choiceStyle = {background: "white", margin: "5px"}
         }
 
         return (
-            <div className={"row rounded"} style = {choiceStyle}>
+            <div className={"row rounded"} style={choiceStyle}>
                 {
                     !this.state.updateMode &&
-                    <div className={"col-sm-6"}>
-                        <h5>{this.state.title}</h5>
+                    <div className={"col-sm-8 wbdv-padding"}>
+                        {this.state.title}
                     </div>
                 }
 
                 {
                     this.state.updateMode &&
-                    <div className={"col-sm-6"}>
-                        <input className="form-control" value={this.state.title} onChange={this.titleChangeHandler}/>
+                    <div className={"col-sm-8 wbdv-padding"}>
+                        <input className="form-control" value={this.state.title}
+                               onChange={this.titleChangeHandler}/>
                     </div>
                 }
 
 
                 {
                     !this.state.updateMode &&
-                    <div className={"col-sm-2"}>
-                        <button type={"button"} className={"btn btn-primary"} onClick={()=>{
+                    <div className={"col-sm-2 wbdv-padding"}>
+                        <h5><i className={"pull-right fa fa-pencil"} onClick={() => {
                             this.choiceBeingUpdated = this.state.title;
                             this.togglePreview();
-                        }}>Update</button>
+                        }}>
+                        </i></h5>
                     </div>
 
                 }
 
                 {
                     this.state.updateMode &&
-                    <div className={"col-sm-2"}>
-                        <button type={"button"} className={"btn btn-primary"} onClick={()=>{
-                            //this.props.updateChoice(this.props.index, this.state.title)
-                            if(!this.props.updateChoice(this.props.index, this.state.title, this.choiceBeingUpdated)) {
-                                this.setState({
-                                    title : this.choiceBeingUpdated
-                                })
-                            };
-                            this.togglePreview();
-                        }}>Done</button>
+                    <div className={"col-sm-2 wbdv-padding"}>
+                        <h5><i className={"pull-right fa fa-check"}
+                                onClick={() => {
+                                    if (!this.props.updateChoice(this.props.index, this.state.title,
+                                                                 this.choiceBeingUpdated)) {
+                                        this.setState({
+                                                          title: this.choiceBeingUpdated
+                                                      })
+                                    }
+                                    this.togglePreview();
+                                }}>
+                        </i></h5>
                     </div>
                 }
 
-                <div className={"col-sm-2"}>
-                    <button type={"button"} className={"btn btn-danger"} onClick={()=>
-                        this.props.deleteChoice(this.props.index)}>Delete</button>
+                <div className={"col-sm-2 wbdv-padding"}>
+                    <h5><i className={"pull-right fa fa-times"} onClick={() =>
+                        this.props.deleteChoice(this.props.index)}>
+                    </i></h5>
                 </div>
                 <br/>
                 <br/>
