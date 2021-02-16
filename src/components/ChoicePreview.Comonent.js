@@ -16,7 +16,6 @@ class ChoicePreview extends React.Component {
     };
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        console.log(this.props.currentSelectedChoice);
         if (this.props.selectType === "singleSelect" && this.props.index
             !== this.props.currentSelectedChoice
             && this.state.selected) {

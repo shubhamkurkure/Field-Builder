@@ -6,6 +6,7 @@ import fieldService from "../services/field.service";
 // This is the main form component. This has a Choice Component, which handles the rendering of the
 // choices.
 class FieldBuilder extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -21,10 +22,24 @@ class FieldBuilder extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const localLabel = localStorage.getItem("localLabel");
+        if (localLabel) {
+            const parsedLabel = JSON.parse(localLabel);
+            this.setState({
+                label: parsedLabel
+            })
+        }
+    }
+
     labelChangeHandler = (event) => {
         this.setState({
                           label: event.target.value
                       })
+
+        const localLabel = this.state.label;
+        const json = JSON.stringify(localLabel);
+        localStorage.setItem("localLabel", json);
     };
 
     defaultValueChangeHandler = (event) => {
@@ -220,7 +235,7 @@ class FieldBuilder extends React.Component {
                                 </div>
                             </div>
                             <hr/>
-
+                            
                             <div className={"row wbdv-padding"}>
                                 <div className={"col-sm-3"}><h5>Default Value</h5></div>
                                 <div className={"col-sm-9"}>
@@ -284,6 +299,7 @@ class FieldBuilder extends React.Component {
                             <hr/>
                             <div className={"row wbdv-padding"}>
                                 <div className={"col-sm-6 wbdv-padding"}>
+
                                     <button style={{width: "100%"}} type={"button"}
                                             className={"btn btn-success"}
                                             onClick={() => {
@@ -385,6 +401,7 @@ class FieldBuilder extends React.Component {
             </div>
         );
     }
+
 }
 
 export default FieldBuilder;
