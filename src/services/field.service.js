@@ -6,9 +6,11 @@ const fieldService = async (fieldBuilderData) => {
         body :JSON.stringify(fieldBuilderData),
         headers : {
             "content-type": "application/json"
-        }
+        },
+        credentials: "include"
     });
     return await response.json();
 }
 
 export default fieldService;
+
