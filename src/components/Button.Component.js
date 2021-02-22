@@ -26,9 +26,8 @@ class Button extends React.Component {
         return (
 
             <button style={{width: "100%"}} type={"button"}
-                    disabled={this.state.isLoading}
                     className={"btn btn-info"} onClick={() => {
-                this.onButtonClick();
+                this.onButtonClick().then();
             }}>
                 <i className="fa fa-undo"/> &nbsp;
                 {this.state.isLoading ? "Loading..." : "Reset"}
