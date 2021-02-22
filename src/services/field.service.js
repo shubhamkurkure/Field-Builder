@@ -7,7 +7,6 @@ const fieldService = async (fieldBuilderData) => {
         headers : {
             "content-type": "application/json"
         },
-        credentials: "include"
     });
     return await response.json();
 }
