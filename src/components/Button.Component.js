@@ -20,7 +20,7 @@ class Button extends React.Component {
                               isLoading: false,
                           });
         });
-    };
+    }
 
     render() {
         return (
@@ -32,7 +32,7 @@ class Button extends React.Component {
                 <i className="fa fa-undo"/> &nbsp;
                 {this.state.isLoading ? "Loading..." : "Reset"}
             </button>
-        );
+        )
     }
 }
 

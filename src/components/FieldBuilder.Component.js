@@ -334,26 +334,26 @@ class FieldBuilder extends React.Component {
                                 </div>
                                 <div className={"col-sm-6 wbdv-padding"}>
 
-                                    {
-                                        <Button/>
-                                    }
+                                    {/*{*/}
+                                    {/*    <Button/>*/}
+                                    {/*}*/}
 
 
-                                    {/*<button style={{width: "100%"}} type={"button"}*/}
-                                    {/*        className={"btn btn-info"} onClick={() => {*/}
-                                    {/*    this.setState({*/}
-                                    {/*                      label: "",*/}
-                                    {/*                      selectType: "singleSelect",*/}
-                                    {/*                      selectTypeCheckBoxState: false,*/}
-                                    {/*                      currentSelectedChoice: -1,*/}
-                                    {/*                      defaultValue: "",*/}
-                                    {/*                      choices: [],*/}
-                                    {/*                      preview: false,*/}
-                                    {/*                      ordering: "noOrdering"*/}
-                                    {/*                  })*/}
-                                    {/*    localStorage.clear();*/}
-                                    {/*}}><i className="fa fa-undo"/> &nbsp; Reset*/}
-                                    {/*</button>*/}
+                                    <button style={{width: "100%"}} type={"button"}
+                                            className={"btn btn-info"} onClick={() => {
+                                        this.setState({
+                                                          label: "",
+                                                          selectType: "singleSelect",
+                                                          selectTypeCheckBoxState: false,
+                                                          currentSelectedChoice: -1,
+                                                          defaultValue: "",
+                                                          choices: [],
+                                                          preview: false,
+                                                          ordering: "noOrdering"
+                                                      })
+                                        localStorage.clear();
+                                    }}><i className="fa fa-undo"/> &nbsp; Reset
+                                    </button>
 
 
                                 </div>
