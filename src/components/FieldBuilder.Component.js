@@ -2,6 +2,8 @@ import React from "react";
 import Choice from "./Choice.Component";
 import ChoicePreview from "./ChoicePreview.Comonent";
 import fieldService from "../services/field.service";
+import Button from "./Button.Component";
+
 
 // This is the main form component. This has a Choice Component, which handles the rendering of the
 // choices.
@@ -300,6 +302,7 @@ class FieldBuilder extends React.Component {
                             <div className={"row wbdv-padding"}>
                                 <div className={"col-sm-6 wbdv-padding"}>
 
+
                                     <button style={{width: "100%"}} type={"button"}
                                             className={"btn btn-success"}
                                             onClick={() => {
@@ -330,6 +333,12 @@ class FieldBuilder extends React.Component {
                                     </button>
                                 </div>
                                 <div className={"col-sm-6 wbdv-padding"}>
+
+                                    {/*{*/}
+                                    {/*    <Button/>*/}
+                                    {/*}*/}
+
+
                                     <button style={{width: "100%"}} type={"button"}
                                             className={"btn btn-info"} onClick={() => {
                                         this.setState({
@@ -342,8 +351,11 @@ class FieldBuilder extends React.Component {
                                                           preview: false,
                                                           ordering: "noOrdering"
                                                       })
+                                        localStorage.clear();
                                     }}><i className="fa fa-undo"/> &nbsp; Reset
                                     </button>
+
+
                                 </div>
                             </div>
 
